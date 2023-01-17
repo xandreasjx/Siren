@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.swift_version = "5.5"
 
   # Meta
-  s.name         = "Siren"
+  s.name         = "SirenX"
   s.summary      = "Notify users that a new version of your iOS app is available, and prompt them with the App Store link."
   s.homepage     = "https://github.com/ArtSabintsev/Siren"
   s.license      = "MIT"
