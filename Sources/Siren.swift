@@ -13,14 +13,25 @@ public final class Siren: NSObject {
     /// Return results or errors obtained from performing a version check with Siren.
     public typealias ResultsHandler = (Result<UpdateResults, KnownError>) -> Void
 
-    /// The Siren singleton. The main point of entry to the Siren library.
-    public static let shared = Siren()
-
+    private static var shared: Siren? = nil
+    public static func singleton() -> Siren {
+        if (shared == nil) {
+            fatalError("Must initialize Obj before using singleton()")
+        }
+        else {
+            return shared!
+        }
+    }
+    
+    public static func initialise(serverPath: String? = nil) {
+        shared = Siren(serverPath: serverPath)
+    }
+    
     /// The manager that controls the App Store API that is
     /// used to fetch the latest version of the app.
     ///
     /// Defaults to the US App Store.
-    public lazy var apiManager: APIManager = .default
+    public var apiManager: APIManager
 
     /// The manager that controls the update alert's string localization and tint color.
     ///
@@ -65,8 +76,15 @@ public final class Siren: NSObject {
     /// The App Store's unique identifier for an app.
     private var appID: Int?
     
+    private var requestURL: String? = nil
+    
     /// The completion handler used to return the results or errors returned by Siren.
     private var resultsHandler: ResultsHandler?
+    
+    
+    init(serverPath: String? = nil) {
+        apiManager = APIManager(requestUrl: requestURL)
+    }
     
     /// The deinitialization method that clears out all observers,
     deinit {

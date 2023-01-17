@@ -35,6 +35,8 @@ public struct APIManager {
     
     /// The language for the localization of App Store responses.
     let language: String?
+    
+    let requestUrl: String?
 
     /// Initializes `APIManager` to the region or country of an App Store in which the app is available.
     /// By default, all version check requests are performed against the US App Store and the language of the copy/text is returned in English.
@@ -42,16 +44,17 @@ public struct APIManager {
     ///  - country: The country for the App Store in which the app is available.
     ///  - language: The locale to use for the App Store notes. The default result the API returns is equivalent to passing "en_us", so passing `nil` is equivalent to passing "en_us".
     ///  - bundleID: The bundleID for your app. Defaults to `Bundle.main.bundleIdentifier`. Passing `nil` will throw a `missingBundleID` error.
-    public init(country: AppStoreCountry = .unitedStates, language: String? = nil, bundleID: String? = Bundle.main.bundleIdentifier) {
-      self.country = country
-      self.language = language
-      self.bundleID = bundleID
+    public init(requestUrl: String? = nil, country: AppStoreCountry = .unitedStates, language: String? = nil, bundleID: String? = Bundle.main.bundleIdentifier) {
+        self.country = country
+        self.language = language
+        self.bundleID = bundleID
+        self.requestUrl = requestUrl
     }
 
     /// The default `APIManager`.
     ///
     /// The version check is performed against the  US App Store.
-    public static let `default` = APIManager()
+    //public static let `default` = APIManager()
 }
 
 extension APIManager {
