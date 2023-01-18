@@ -75,7 +75,14 @@ extension APIManager {
         }
 
         do {
-            let url = try makeITunesURL()
+            var url: URL!
+            if requestUrl != nil, let newUrl = URL(string: requestUrl!) {
+                url = newUrl
+            }
+            else {
+                url = try makeITunesURL()
+            }
+            
             let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 30)
             let (data, response) = try await URLSession.shared.data(for: request)
             return try processVersionCheckResults(withData: data, response: response)

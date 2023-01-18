@@ -83,7 +83,7 @@ public final class Siren: NSObject {
     
     
     init(serverPath: String? = nil) {
-        apiManager = APIManager(requestUrl: requestURL)
+        apiManager = APIManager(requestUrl: serverPath)
     }
     
     /// The deinitialization method that clears out all observers,
